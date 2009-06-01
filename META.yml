@@ -1,6 +1,6 @@
 ---
 name: Perl6-Pod
-version: 0.01_01
+version: 0.01_02
 author:
   - Zahatski Aliaksandr zag@cpan.org
 abstract: use Perl6's pod in perl5 programms
@@ -16,9 +16,15 @@ requires:
 provides:
   Perl6::Pod:
     file: lib/Perl6/Pod.pm
-    version: 0.01_01
+    version: 0.01_02
   Perl6::Pod::Block:
     file: lib/Perl6/Pod/Block.pm
+  Perl6::Pod::Block::comment:
+    file: lib/Perl6/Pod/Block/comment.pm
+  Perl6::Pod::Directive::config:
+    file: lib/Perl6/Pod/Directive/config.pm
+  Perl6::Pod::Directive::use:
+    file: lib/Perl6/Pod/Directive/use.pm
   Perl6::Pod::FormattingCode:
     file: lib/Perl6/Pod/FormattingCode.pm
   Perl6::Pod::Parser:

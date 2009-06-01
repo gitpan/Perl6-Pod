@@ -2,6 +2,9 @@ Build.PL
 Changes
 lib/Perl6/Pod.pm
 lib/Perl6/Pod/Block.pm
+lib/Perl6/Pod/Block/comment.pm
+lib/Perl6/Pod/Directive/config.pm
+lib/Perl6/Pod/Directive/use.pm
 lib/Perl6/Pod/FormattingCode.pm
 lib/Perl6/Pod/Parser.pm
 lib/Perl6/Pod/Parser/Context.pm
@@ -16,5 +19,6 @@ t/01_blocks.t
 t/02_Context_parse_opt.t
 t/03_Context_get_set_attrs.t
 t/04_Block.t
+t/05_1.comment.t
 t/08_Parser.t
 META.yml
