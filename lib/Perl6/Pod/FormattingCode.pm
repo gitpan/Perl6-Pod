@@ -1,6 +1,6 @@
 package Perl6::Pod::FormattingCode;
 
-#$Id: FormattingCode.pm 547 2009-05-25 18:01:48Z zag $
+#$Id: FormattingCode.pm 572 2009-07-07 17:46:25Z zag $
 
 =pod
 
@@ -21,6 +21,20 @@ use warnings;
 use strict;
 use Perl6::Pod::Block;
 use base 'Perl6::Pod::Block';
+=head2 get_attr [code_name]
+
+Return formatting code  attributes splited with pre-configured via =config.
+Unless provided <code_name> return attributes for current .
+
+=cut
+
+sub get_attr {
+    my $self = shift;
+    my $name =  shift || $self->local_name;
+    $self->SUPER::get_attr($name.'<>')
+ 
+}
+
 1;
 __END__
 

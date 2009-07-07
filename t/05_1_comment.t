@@ -1,3 +1,9 @@
+#===============================================================================
+#
+#  DESCRIPTION:  
+#
+#       AUTHOR:  Aliaksandr P. Zahatski (Mn), <zahatski@gmail.com>
+#===============================================================================
 =pod
 
 test for =comment block
@@ -5,7 +11,7 @@ test for =comment block
 =cut
 
 
-#$Id: 05_1.comment.t 552 2009-06-01 18:26:08Z zag $
+#$Id: 05_1_comment.t 572 2009-07-07 17:46:25Z zag $
 
 package Test::comment;
 use Perl6::Pod::Parser;

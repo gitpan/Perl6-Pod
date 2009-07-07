@@ -1,6 +1,6 @@
 package Perl6::Pod::Directive::config;
 
-#$Id: config.pm 552 2009-06-01 18:26:08Z zag $
+#$Id: config.pm 572 2009-07-07 17:46:25Z zag $
 
 =pod
 
@@ -10,10 +10,26 @@ Perl6::Pod::Directive::config - handle =config directive
 
 =head1 SYNOPSIS
 
+Block pre-configuration
+
+  =config head1 :numbered
+  =config head2 :like<head1> :formatted<I>
+
+Pre-configuring formatting codes
+
+
+  =config V<>  :allow<E>
+  =config C<>  :formatted<I>
+
 
 =head1 DESCRIPTION
 
 Perl6::Pod::Directive::config - handle =config directive
+
+The =config directive allows you to prespecify standard configuration information that is applied to every block of a particular type.
+
+    =config BLOCK_TYPE  CONFIG OPTIONS
+    =                   OPTIONAL EXTRA CONFIG OPTIONS
 
 =cut
 

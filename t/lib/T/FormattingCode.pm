@@ -1,11 +1,12 @@
 #===============================================================================
-#
-#  DESCRIPTION:  
-#
+#  DESCRIPTION:  Test fromatting codes
 #       AUTHOR:  Aliaksandr P. Zahatski (Mn), <zahatski@gmail.com>
 #===============================================================================
 
-use warnings;
+package T::FormattingCode;
 use strict;
-use Test::More(tests=>1);
-use_ok('Perl6::Pod::Parser');
+use warnings;
+use base "TBase";
+
+
+1;

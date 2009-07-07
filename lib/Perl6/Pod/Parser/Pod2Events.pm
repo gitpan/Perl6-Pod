@@ -1,4 +1,4 @@
-#$Id: Pod2Events.pm 552 2009-06-01 18:26:08Z zag $
+#$Id: Pod2Events.pm 572 2009-07-07 17:46:25Z zag $
 #
 #  Test blocks events
 package Perl6::Pod::Parser::Pod2Events;
@@ -13,6 +13,7 @@ use base qw/ XML::ExtOn /;
 use constant {
     NEW_LINE  => qr/^ \s* $/xms,
     DIRECTIVE => qr/^(begin|config|encoding|end|for|use)$/xms,
+    BLOCK_NULL_CONTENT => qr/^(config|encoding|use)$/xms,
 };
 
 =head2 parse_config_str
@@ -181,7 +182,9 @@ sub parse {
                     unless ( $data =~ /(\S+)/ ) {
                         die("Error: bad =end  at line $str_num: $_");
                     }
-                    if ( $curr->{NAME} ne $data ) {
+                    my ($name) = $data =~ m/(\w+)/;
+
+                    if ( $curr->{NAME} ne $name ) {
                         die
 "Error: Expected '=end  $curr->{NAME}'  at line $str_num:  $_";
                     }
@@ -242,6 +245,11 @@ sub parse {
                 $self->new_line($str_num);
             }
             else {
+                my $lname = $self->current_element->local_name;
+                #for directives use|config|encoding
+                if ($lname =~ /${\( BLOCK_NULL_CONTENT )}/) {
+                  $self->before_start_directive(); 
+                }
                 $self->characters( { Data => $_ } );
             }
           }

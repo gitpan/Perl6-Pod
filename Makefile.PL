@@ -7,7 +7,10 @@ WriteMakefile
           'VERSION_FROM' => 'lib/Perl6/Pod.pm',
           'PREREQ_PM' => {
                            'Encode' => 0,
+                           'Getopt::Long' => 0,
+                           'Pod::Usage' => 0,
                            'XML::ExtOn' => '0',
+                           'XML::Flow' => '0',
                            'XML::Parser' => '0',
                            'XML::SAX::Writer' => 0,
                            'XML::Writer' => '0'
