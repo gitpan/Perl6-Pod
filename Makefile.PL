@@ -16,6 +16,8 @@ WriteMakefile
                            'XML::Writer' => '0'
                          },
           'INSTALLDIRS' => 'site',
-          'EXE_FILES' => []
+          'EXE_FILES' => [
+                           'scripts/pod6xml'
+                         ]
         )
 ;
