@@ -9,6 +9,7 @@ WriteMakefile
                            'Encode' => 0,
                            'Getopt::Long' => 0,
                            'Pod::Usage' => 0,
+                           'Test::Class' => 0,
                            'XML::ExtOn' => '0',
                            'XML::Flow' => '0',
                            'XML::Parser' => '0',
