@@ -1,12 +1,12 @@
 ---
 name: Perl6-Pod
-version: 0.02_02
+version: 0.03
 author:
   - Zahatski Aliaksandr zag@cpan.org
 abstract: use Perl6's pod in perl5 programms
 license: perl
 resources:
-  license: ~
+  license: http://dev.perl.org/licenses/
 requires:
   Encode: 0
   Getopt::Long: 0
@@ -20,7 +20,7 @@ requires:
 provides:
   Perl6::Pod:
     file: lib/Perl6/Pod.pm
-    version: 0.02_02
+    version: 0.03
   Perl6::Pod::Block:
     file: lib/Perl6/Pod/Block.pm
   Perl6::Pod::Block::comment:
@@ -55,11 +55,15 @@ provides:
     file: lib/Perl6/Pod/To/DocBook/ProcessHeads.pm
   Perl6::Pod::To::Mem:
     file: lib/Perl6/Pod/To/Mem.pm
+  Perl6::Pod::To::XHTML:
+    file: lib/Perl6/Pod/To/XHTML.pm
+  Perl6::Pod::To::XHTML::ProcessHeads:
+    file: lib/Perl6/Pod/To/XHTML/ProcessHeads.pm
   Perl6::Pod::To::XML:
     file: lib/Perl6/Pod/To/XML.pm
   Test::Filter:
     file: lib/Perl6/Pod/To/DocBook.pm
-generated_by: Module::Build version 0.32
+generated_by: Module::Build version 0.33
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4

@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski, <zahatski@gmail.com>
 #===============================================================================
-#$Id: ListLevels.pm 574 2009-07-13 03:57:29Z zag $
+#$Id: ListLevels.pm 582 2009-07-26 09:04:44Z zag $
 package T::Parser::ListLevels;
 use strict;
 use warnings;
@@ -28,7 +28,7 @@ q#<pod pod:type='block' xmlns:pod='http://perlcabal.org/syn/S26.html'><itemlist 
     );
 }
 
-sub t2_two_interrupted_items_blocks : Test(2) {
+sub t2_two_interrupted_items_blocks : Test {
     my $t = shift;
     my $x = $t->parse_to_xml( <<T1, 'Perl6::Pod::Parser::ListLevels' );
 =begin pod
@@ -110,10 +110,13 @@ q#<pod pod:type='block' xmlns:pod='http://perlcabal.org/syn/S26.html'><para pod:
     );
 }
 
-sub t6_docbook : Test(1) {
+sub t6_docbook : Test {
     my $t = shift;
     my $x = $t->parse_to_xml( <<T1, 'Perl6::Pod::Parser::ListLevels' );
 T1
+    
+
+    "last"
 }
 1;
 

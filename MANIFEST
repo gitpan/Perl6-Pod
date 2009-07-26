@@ -18,11 +18,14 @@ lib/Perl6/Pod/To.pm
 lib/Perl6/Pod/To/DocBook.pm
 lib/Perl6/Pod/To/DocBook/ProcessHeads.pm
 lib/Perl6/Pod/To/Mem.pm
+lib/Perl6/Pod/To/XHTML.pm
+lib/Perl6/Pod/To/XHTML/ProcessHeads.pm
 lib/Perl6/Pod/To/XML.pm
 Makefile.PL
 MANIFEST
 README
 scripts/pod6docbook
+scripts/pod6xhtml
 scripts/pod6xml
 t/00_use.t
 t/01_blocks.t
@@ -38,6 +41,7 @@ t/06_3_add_ids.t
 t/08_Parser.t
 t/10_01.To_xml.t
 t/10_02.To_docbook.t
+t/10_03.To_xhtml.t
 t/data/S26.pod6
 t/lib/T/FormattingCode.pm
 t/lib/T/FormattingCode/M.pm
@@ -47,6 +51,7 @@ t/lib/T/Parser/ListLevels.pm
 t/lib/T/To.pm
 t/lib/T/To/DocBook.pm
 t/lib/T/To/Mem.pm
+t/lib/T/To/XHTML.pm
 t/lib/T/To/XML.pm
 t/lib/TBase.pm
 META.yml
