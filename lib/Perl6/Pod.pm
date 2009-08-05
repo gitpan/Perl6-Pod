@@ -1,6 +1,6 @@
 package Perl6::Pod;
 
-#$Id: Pod.pm 583 2009-07-26 09:05:25Z zag $
+#$Id: Pod.pm 585 2009-08-05 06:51:38Z zag $
 
 =pod
 
@@ -33,7 +33,7 @@ DOCUMENTING !DOCUMENTING !DOCUMENTING !DOCUMENTING !DOCUMENTING !
 
 =cut
 
-$Perl6::Pod::VERSION = '0.03';
+$Perl6::Pod::VERSION = '0.04';
 
 use warnings;
 use strict;

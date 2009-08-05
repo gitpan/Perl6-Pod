@@ -1,6 +1,6 @@
 package Perl6::Pod::Block;
 
-#$Id: Block.pm 572 2009-07-07 17:46:25Z zag $
+#$Id: Block.pm 585 2009-08-05 06:51:38Z zag $
 
 =pod
 
@@ -94,7 +94,15 @@ sub end {
 
 sub on_para {
     my ( $self, $parser, $txt ) = @_;
+    #process formating codes by default
+    #$self->
+    return $parser->get_elements_from_ref( $parser->parse_str($txt) );
     return $txt;
+}
+
+sub on_child {
+    my ( $self, $parser, $elem  ) = @_;
+    return $elem;
 }
 
 =head2 get_attr [block name]

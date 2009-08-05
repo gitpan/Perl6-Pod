@@ -1,6 +1,6 @@
 package Perl6::Pod::To::XML;
 
-#$Id: XML.pm 574 2009-07-13 03:57:29Z zag $
+#$Id: XML.pm 585 2009-08-05 06:51:38Z zag $
 
 =pod
 
@@ -82,7 +82,8 @@ sub process_element {
         $res = $elem->to_xml($self, @_);
         unless ( ref( $res ) ) {
             $res = $self->out_parser->mk_from_xml( $res )
-        }
+        } 
+        return  $res
     }
     else {
 

@@ -4,7 +4,20 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski, <zahatski@gmail.com>
 #===============================================================================
-#$Id: XML.pm 574 2009-07-13 03:57:29Z zag $
+#$Id: XML.pm 585 2009-08-05 06:51:38Z zag $
+package Test::Tag;
+use strict;
+#use warnings;
+use Perl6::Pod::Block;
+use base 'Perl6::Pod::Block';
+use XML::Flow;
+
+sub to_xml {
+    my ( $self, $parser, @in ) = @_;
+    return "<p>@in</p>";
+}
+1;
+
 package T::To::XML;
 use strict;
 use warnings;

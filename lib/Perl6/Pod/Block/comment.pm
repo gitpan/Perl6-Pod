@@ -1,6 +1,6 @@
 package Perl6::Pod::Block::comment;
 
-#$Id: comment.pm 552 2009-06-01 18:26:08Z zag $
+#$Id: comment.pm 585 2009-08-05 06:51:38Z zag $
 
 =pod
 
@@ -10,10 +10,11 @@ Perl6::Pod::Block::comment - handle =comment block
 
 =head1 SYNOPSIS
 
+    =comment Don't nest this code block in the usual way...
 
 =head1 DESCRIPTION
 
-Perl6::Pod::Block::comment - handle =comment block
+B<=comment> - Content to be ignored by all renderers
 
 =cut
 

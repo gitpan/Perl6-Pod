@@ -1,6 +1,5 @@
 package Test::Filter;
 use strict;
-use warnings;
 use Test::More;
 use XML::ExtOn('create_pipe');
 use base 'XML::ExtOn';
@@ -16,7 +15,7 @@ sub on_start_element {
 
 package Perl6::Pod::To::XHTML;
 
-#$Id: XHTML.pm 582 2009-07-26 09:04:44Z zag $
+#$Id: XHTML.pm 585 2009-08-05 06:51:38Z zag $
 
 =pod
 

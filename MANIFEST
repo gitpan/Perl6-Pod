@@ -2,7 +2,11 @@ Build.PL
 Changes
 lib/Perl6/Pod.pm
 lib/Perl6/Pod/Block.pm
+lib/Perl6/Pod/Block/code.pm
 lib/Perl6/Pod/Block/comment.pm
+lib/Perl6/Pod/Block/format.pm
+lib/Perl6/Pod/Block/para.pm
+lib/Perl6/Pod/Block/pod.pm
 lib/Perl6/Pod/Directive/config.pm
 lib/Perl6/Pod/Directive/use.pm
 lib/Perl6/Pod/FormattingCode.pm
@@ -43,6 +47,10 @@ t/10_01.To_xml.t
 t/10_02.To_docbook.t
 t/10_03.To_xhtml.t
 t/data/S26.pod6
+t/lib/T/Block/code.pm
+t/lib/T/Block/format.pm
+t/lib/T/Block/para.pm
+t/lib/T/Block/pod.pm
 t/lib/T/FormattingCode.pm
 t/lib/T/FormattingCode/M.pm
 t/lib/T/Parser/AddHeadLevels.pm
