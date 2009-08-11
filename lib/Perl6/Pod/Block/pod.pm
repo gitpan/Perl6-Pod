@@ -1,6 +1,6 @@
 package Perl6::Pod::Block::pod;
 
-#$Id: pod.pm 585 2009-08-05 06:51:38Z zag $
+#$Id: pod.pm 587 2009-08-11 03:13:15Z zag $
 
 =pod
 
@@ -57,7 +57,7 @@ sub on_para {
     my $self   = shift;
     my $parser = shift;
     my $txt    = shift;
-
+    return unless defined $txt;
     #convert ordinary para to =para
     # and verbatim text to =code
     my $rparser = $self->context->{vars}->{root};

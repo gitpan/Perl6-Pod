@@ -1,6 +1,6 @@
 package Perl6::Pod::Block::para;
 
-#$Id: para.pm 585 2009-08-05 06:51:38Z zag $
+#$Id: para.pm 587 2009-08-11 03:13:15Z zag $
 
 =pod
 
@@ -35,10 +35,11 @@ use strict;
 use Perl6::Pod::Block;
 use base 'Perl6::Pod::Block';
 
-sub to_xhtml1 { 
+sub to_xhtml { 
     my $self = shift;
     my $parser = shift;
-#    my $el = $parser->mk_element('p')->add_content( $parser->mk_characters( '@_'));
+    my $el = $parser->mk_element('p')->add_content( $parser->_make_elements( @_));
+    return $el;
 }
 
 

@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski, <zahatski@gmail.com>
 #===============================================================================
-#$Id: para.pm 585 2009-08-05 06:51:38Z zag $
+#$Id: para.pm 587 2009-08-11 03:13:15Z zag $
 package T::Block::para;
 use strict;
 use warnings;
@@ -99,8 +99,6 @@ TT
 $t->is_deeply_xml( $x,q#<html xmlns='http://www.w3.org/1999/xhtml'><p>    test code
  </p></html>#)
 }
-
-
 
 1;
 

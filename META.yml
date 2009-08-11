@@ -1,6 +1,6 @@
 ---
 name: Perl6-Pod
-version: 0.04
+version: 0.05
 author:
   - Zahatski Aliaksandr zag@cpan.org
 abstract: use Perl6's pod in perl5 programms
@@ -20,7 +20,7 @@ requires:
 provides:
   Perl6::Pod:
     file: lib/Perl6/Pod.pm
-    version: 0.04
+    version: 0.05
   Perl6::Pod::Block:
     file: lib/Perl6/Pod/Block.pm
   Perl6::Pod::Block::code:
@@ -39,6 +39,8 @@ provides:
     file: lib/Perl6/Pod/Directive/use.pm
   Perl6::Pod::FormattingCode:
     file: lib/Perl6/Pod/FormattingCode.pm
+  Perl6::Pod::FormattingCode::L:
+    file: lib/Perl6/Pod/FormattingCode/L.pm
   Perl6::Pod::FormattingCode::M:
     file: lib/Perl6/Pod/FormattingCode/M.pm
   Perl6::Pod::Parser:
@@ -65,8 +67,12 @@ provides:
     file: lib/Perl6/Pod/To/Mem.pm
   Perl6::Pod::To::XHTML:
     file: lib/Perl6/Pod/To/XHTML.pm
-  Perl6::Pod::To::XHTML::ProcessHeads:
-    file: lib/Perl6/Pod/To/XHTML/ProcessHeads.pm
+  Perl6::Pod::To::XHTML::MakeBody:
+    file: lib/Perl6/Pod/To/XHTML/MakeBody.pm
+  Perl6::Pod::To::XHTML::MakeHead:
+    file: lib/Perl6/Pod/To/XHTML/MakeHead.pm
+  Perl6::Pod::To::XHTML::ProcessHeadings:
+    file: lib/Perl6/Pod/To/XHTML/ProcessHeadings.pm
   Perl6::Pod::To::XML:
     file: lib/Perl6/Pod/To/XML.pm
   Test::Filter:

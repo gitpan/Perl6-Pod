@@ -10,6 +10,7 @@ lib/Perl6/Pod/Block/pod.pm
 lib/Perl6/Pod/Directive/config.pm
 lib/Perl6/Pod/Directive/use.pm
 lib/Perl6/Pod/FormattingCode.pm
+lib/Perl6/Pod/FormattingCode/L.pm
 lib/Perl6/Pod/FormattingCode/M.pm
 lib/Perl6/Pod/Parser.pm
 lib/Perl6/Pod/Parser/AddHeadLevels.pm
@@ -23,7 +24,9 @@ lib/Perl6/Pod/To/DocBook.pm
 lib/Perl6/Pod/To/DocBook/ProcessHeads.pm
 lib/Perl6/Pod/To/Mem.pm
 lib/Perl6/Pod/To/XHTML.pm
-lib/Perl6/Pod/To/XHTML/ProcessHeads.pm
+lib/Perl6/Pod/To/XHTML/MakeBody.pm
+lib/Perl6/Pod/To/XHTML/MakeHead.pm
+lib/Perl6/Pod/To/XHTML/ProcessHeadings.pm
 lib/Perl6/Pod/To/XML.pm
 Makefile.PL
 MANIFEST
@@ -37,12 +40,15 @@ t/02_Context_parse_opt.t
 t/03_Context_get_set_attrs.t
 t/03_to_mem.t
 t/04_Block.t
+t/04_Blocks.t
 t/05_1_comment.t
 t/05_2_custom_codes_fmt_M.t
+t/05_FormattingCodes.t
 t/06_1_head_levels.t
 t/06_2_lists.t
 t/06_3_add_ids.t
 t/08_Parser.t
+t/09_Parser_Filters.t
 t/10_01.To_xml.t
 t/10_02.To_docbook.t
 t/10_03.To_xhtml.t
@@ -52,7 +58,9 @@ t/lib/T/Block/format.pm
 t/lib/T/Block/para.pm
 t/lib/T/Block/pod.pm
 t/lib/T/FormattingCode.pm
+t/lib/T/FormattingCode/L.pm
 t/lib/T/FormattingCode/M.pm
+t/lib/T/Parser.pm
 t/lib/T/Parser/AddHeadLevels.pm
 t/lib/T/Parser/AddIds.pm
 t/lib/T/Parser/ListLevels.pm

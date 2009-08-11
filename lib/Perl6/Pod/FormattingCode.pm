@@ -1,6 +1,6 @@
 package Perl6::Pod::FormattingCode;
 
-#$Id: FormattingCode.pm 572 2009-07-07 17:46:25Z zag $
+#$Id: FormattingCode.pm 587 2009-08-11 03:13:15Z zag $
 
 =pod
 
@@ -35,6 +35,10 @@ sub get_attr {
  
 }
 
+sub on_para {
+    my ($self ,$parser, $txt) = @_;
+    return $txt
+}
 1;
 __END__
 
