@@ -15,7 +15,7 @@ sub on_start_element {
 
 package Perl6::Pod::To::XHTML;
 
-#$Id: XHTML.pm 590 2009-08-14 06:08:27Z zag $
+#$Id: XHTML.pm 602 2009-09-06 19:30:29Z zag $
 
 =pod
 
@@ -185,7 +185,11 @@ sub print_export {
     my $self = shift;
     for (@_) {
         my @data = ref($_) eq 'ARRAY' ? @{$_} : $_;
-        $self->out_parser->_process_comm($_) for @data;
+        foreach my $el (@data) {
+            $el = $self->mk_characters( $el) unless ref $el;
+            $self->out_parser->_process_comm($el)
+        }
+#        $self->out_parser->_process_comm($_) for @data;
     }
 }
 

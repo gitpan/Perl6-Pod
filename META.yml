@@ -1,6 +1,6 @@
 ---
 name: Perl6-Pod
-version: 0.06
+version: 0.07
 author:
   - Zahatski Aliaksandr zag@cpan.org
 abstract: use Perl6's pod in perl5 programms
@@ -17,10 +17,12 @@ requires:
   XML::Parser: 0
   XML::SAX::Writer: 0
   XML::Writer: 0
+configure_requires:
+  Module::Build: 0.34
 provides:
   Perl6::Pod:
     file: lib/Perl6/Pod.pm
-    version: 0.06
+    version: 0.07
   Perl6::Pod::Block:
     file: lib/Perl6/Pod/Block.pm
   Perl6::Pod::Block::code:
@@ -77,7 +79,7 @@ provides:
     file: lib/Perl6/Pod/To/XML.pm
   Test::Filter:
     file: lib/Perl6/Pod/To/DocBook.pm
-generated_by: Module::Build version 0.33
+generated_by: Module::Build version 0.34
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
