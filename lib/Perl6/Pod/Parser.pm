@@ -1,6 +1,6 @@
 package Perl6::Pod::Parser;
 
-#$Id: Parser.pm 587 2009-08-11 03:13:15Z zag $
+#$Id: Parser.pm 609 2009-09-14 17:34:00Z zag $
 
 =pod
 
@@ -22,6 +22,7 @@ DOCUMENTING !DOCUMENTING !DOCUMENTING !DOCUMENTING !DOCUMENTING !
 use warnings;
 use strict;
 use Carp;
+use open ':utf8';
 use IO::File;
 use Test::More;
 use Data::Dumper;

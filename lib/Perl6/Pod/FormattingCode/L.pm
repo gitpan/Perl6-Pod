@@ -1,6 +1,6 @@
 package Perl6::Pod::FormattingCode::L;
 
-#$Id: L.pm 602 2009-09-06 19:30:29Z zag $
+#$Id: L.pm 609 2009-09-14 17:34:00Z zag $
 
 =pod
 
@@ -71,7 +71,7 @@ sub to_xhtml {
         $a->add_content( $parser->mk_characters( $name ) );
         return $a
      }
-     || do { return $self->mk_characters( $in[0] ) }
+     || do { return $parser->mk_characters( $in[0] ) }
      }
 }
 1;
