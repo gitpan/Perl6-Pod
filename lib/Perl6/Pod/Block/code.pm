@@ -1,6 +1,6 @@
 package Perl6::Pod::Block::code;
 
-#$Id: code.pm 585 2009-08-05 06:51:38Z zag $
+#$Id$
 
 =pod
 
@@ -10,15 +10,9 @@ Perl6::Pod::Block::code - Verbatim pre-formatted sample source code
 
 =head1 SYNOPSIS
 
-    =for format :xml
-    <root><test/></root>
-
-    =for format :xhtml
-    <div><br/></div>
-
-    =for format :docbook
-    <title>Test chapter</title>
-    <para>This is a test para</para>
+     =begin code
+      print "Ok";
+     =end code
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Perl6::Pod::Parser::AddHeadLevels;
 
-#$Id: AddHeadLevels.pm 574 2009-07-13 03:57:29Z zag $
+#$Id$
 
 =pod
 

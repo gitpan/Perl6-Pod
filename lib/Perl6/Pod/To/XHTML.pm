@@ -15,7 +15,7 @@ sub on_start_element {
 
 package Perl6::Pod::To::XHTML;
 
-#$Id: XHTML.pm 602 2009-09-06 19:30:29Z zag $
+#$Id$
 
 =pod
 

@@ -1,6 +1,6 @@
 package Perl6::Pod::Parser::AddIds;
 
-#$Id: AddIds.pm 582 2009-07-26 09:04:44Z zag $
+#$Id$
 
 =pod
 

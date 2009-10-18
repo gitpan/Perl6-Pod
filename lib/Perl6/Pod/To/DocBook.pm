@@ -16,7 +16,7 @@ sub on_start_element {
 
 package Perl6::Pod::To::DocBook;
 
-#$Id: DocBook.pm 582 2009-07-26 09:04:44Z zag $
+#$Id$
 
 =pod
 
@@ -224,7 +224,10 @@ sub export_block_itemlist {
 
             #if variable list, then add varlistentry
             if ( $list->local_name eq 'variablelist' ) {
-                my ($term) = @{ $_->{POD}->{term} };
+                my ($term) =
+                  ref( $_->{POD}->{term} )
+                  ? @{ $_->{POD}->{term} }
+                  : ( $_->{POD}->{term} );
 
                 my $var_entry =
                   $self->mk_element('varlistentry')

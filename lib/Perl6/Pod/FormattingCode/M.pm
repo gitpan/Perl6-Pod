@@ -1,6 +1,6 @@
 package Perl6::Pod::FormattingCode::M;
 
-#$Id: M.pm 572 2009-07-07 17:46:25Z zag $
+#$Id$
 
 =pod
 

@@ -1,4 +1,4 @@
-#$Id: Pod2Events.pm 585 2009-08-05 06:51:38Z zag $
+#$Id$
 #
 #  Test blocks events
 package Perl6::Pod::Parser::Pod2Events;

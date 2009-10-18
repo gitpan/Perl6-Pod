@@ -1,6 +1,6 @@
 package Perl6::Pod::Block::pod;
 
-#$Id: pod.pm 587 2009-08-11 03:13:15Z zag $
+#$Id$
 
 =pod
 

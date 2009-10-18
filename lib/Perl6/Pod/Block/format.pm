@@ -1,6 +1,6 @@
 package Perl6::Pod::Block::format;
 
-#$Id: format.pm 585 2009-08-05 06:51:38Z zag $
+#$Id$
 
 =pod
 

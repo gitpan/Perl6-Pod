@@ -1,6 +1,6 @@
 package Perl6::Pod::To::XML;
 
-#$Id: XML.pm 585 2009-08-05 06:51:38Z zag $
+#$Id$
 
 =pod
 
@@ -139,6 +139,16 @@ sub on_end_block {
         $self->print_export($data);
     }
     return $el;
+}
+
+sub _make_events {
+    my $self = shift;
+    my @in = $self-> __expand_array_ref( @_);
+    my @out = ();
+    foreach my $elem ( @in ) {
+        push @out, ref( $elem) ? $elem : $self->mk_characters($elem);
+    }
+    return @out
 }
 
 1;

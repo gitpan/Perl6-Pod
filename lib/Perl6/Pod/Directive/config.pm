@@ -1,6 +1,6 @@
 package Perl6::Pod::Directive::config;
 
-#$Id: config.pm 572 2009-07-07 17:46:25Z zag $
+#$Id$
 
 =pod
 

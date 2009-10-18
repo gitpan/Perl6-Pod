@@ -1,6 +1,6 @@
 package Perl6::Pod::To::Mem;
 
-#$Id: Mem.pm 568 2009-07-06 12:57:36Z zag $
+#$Id$
 
 =pod
 

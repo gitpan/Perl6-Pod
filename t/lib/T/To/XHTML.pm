@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski (Mn), <zahatski@gmail.com>
 #===============================================================================
-#$Id: XHTML.pm 590 2009-08-14 06:08:27Z zag $
+#$Id$
 package T::To::XHTML;
 use strict;
 use warnings;

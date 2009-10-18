@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski, <zahatski@gmail.com>
 #===============================================================================
-#$Id: Parser.pm 603 2009-09-08 06:22:31Z zag $
+#$Id$
 package CustomBlock;
 use strict;
 use warnings;

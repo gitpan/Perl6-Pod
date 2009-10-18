@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski (Mn), <zahatski@gmail.com>
 #===============================================================================
-#$Id: DocBook.pm 582 2009-07-26 09:04:44Z zag $
+#$Id$
 package T::To::DocBook;
 use strict;
 use warnings;

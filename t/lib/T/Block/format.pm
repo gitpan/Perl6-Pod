@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski, <zahatski@gmail.com>
 #===============================================================================
-#$Id: format.pm 585 2009-08-05 06:51:38Z zag $
+#$Id$
 package T::Block::format;
 use strict;
 use warnings;

@@ -1,6 +1,6 @@
 package Perl6::Pod::To::DocBook::ProcessHeads;
 
-#$Id: ProcessHeads.pm 574 2009-07-13 03:57:29Z zag $
+#$Id$
 
 =pod
 

@@ -1,6 +1,6 @@
 package Perl6::Pod::Directive::use;
 
-#$Id: use.pm 572 2009-07-07 17:46:25Z zag $
+#$Id$
 
 =pod
 

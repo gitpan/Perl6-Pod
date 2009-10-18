@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski, <zahatski@gmail.com>
 #===============================================================================
-#$Id: para.pm 587 2009-08-11 03:13:15Z zag $
+#$Id$
 package T::Block::para;
 use strict;
 use warnings;

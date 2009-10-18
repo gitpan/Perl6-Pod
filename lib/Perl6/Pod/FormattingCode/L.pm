@@ -1,12 +1,12 @@
 package Perl6::Pod::FormattingCode::L;
 
-#$Id: L.pm 609 2009-09-14 17:34:00Z zag $
+#$Id$
 
 =pod
 
 =head1 NAME
 
-Perl6::Pod::FormattingCode::L - handle L<> formatting code
+Perl6::Pod::FormattingCode::L - handle "L" formatting code
 
 =head1 SYNOPSIS
 

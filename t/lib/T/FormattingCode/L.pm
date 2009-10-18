@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski, <zahatski@gmail.com>
 #===============================================================================
-#$Id: L.pm 602 2009-09-06 19:30:29Z zag $
+#$Id$
 package T::FormattingCode::L;
 
 use strict;

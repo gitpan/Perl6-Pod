@@ -1,6 +1,6 @@
 package Perl6::Pod::Parser;
 
-#$Id: Parser.pm 609 2009-09-14 17:34:00Z zag $
+#$Id$
 
 =pod
 

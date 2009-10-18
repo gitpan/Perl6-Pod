@@ -4,7 +4,7 @@
 #
 #       AUTHOR:  Aliaksandr P. Zahatski, <zahatski@gmail.com>
 #===============================================================================
-#$Id: ListLevels.pm 603 2009-09-08 06:22:31Z zag $
+#$Id$
 package T::Parser::ListLevels;
 use strict;
 use warnings;

@@ -6,7 +6,7 @@
 #  DESCRIPTION:  save Perl pod to xml
 #       AUTHOR:  Aliaksandr P. Zahatski ,  <zahatski@gmail.com>
 #===============================================================================
-#$Id: pod6xml 573 2009-07-11 12:54:28Z zag $
+#$Id$
 use strict;
 use warnings;
 use Data::Dumper;

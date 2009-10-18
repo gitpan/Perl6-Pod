@@ -11,7 +11,7 @@ test for =comment block
 =cut
 
 
-#$Id: 05_1_comment.t 572 2009-07-07 17:46:25Z zag $
+#$Id$
 
 package Test::comment;
 use Perl6::Pod::Parser;

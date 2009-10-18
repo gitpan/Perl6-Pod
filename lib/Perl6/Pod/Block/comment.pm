@@ -1,6 +1,6 @@
 package Perl6::Pod::Block::comment;
 
-#$Id: comment.pm 585 2009-08-05 06:51:38Z zag $
+#$Id$
 
 =pod
 

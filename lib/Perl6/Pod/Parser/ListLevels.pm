@@ -1,6 +1,6 @@
 package Perl6::Pod::Parser::ListLevels;
 
-#$Id: ListLevels.pm 590 2009-08-14 06:08:27Z zag $
+#$Id$
 
 =pod
 
@@ -89,7 +89,6 @@ sub on_para {
 
     #close itemlist by para block
     if ( exists $self->{IN_ITEMLIST} and $el->local_name eq 'itemlist' ) {
-	warn "aaaa";
         $self->_process_comm(
             $self->mk_end_element( $self->mk_block('itemlist') ) );
         delete $self->{IN_ITEMLIST};
