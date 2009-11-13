@@ -53,6 +53,7 @@ t/10_01.To_xml.t
 t/10_02.To_docbook.t
 t/10_03.To_xhtml.t
 t/data/S26.pod6
+t/lib/T/Block.pm
 t/lib/T/Block/code.pm
 t/lib/T/Block/format.pm
 t/lib/T/Block/para.pm
