@@ -11,7 +11,7 @@ WriteMakefile
                            'Getopt::Long' => 0,
                            'Pod::Usage' => 0,
                            'Test::Class' => 0,
-                           'XML::ExtOn' => '0.11',
+                           'XML::ExtOn' => '0.12',
                            'XML::Flow' => '0',
                            'XML::Parser' => '0',
                            'XML::SAX::Writer' => 0,

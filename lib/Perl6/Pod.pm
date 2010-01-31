@@ -40,9 +40,9 @@ Unordered lists
 
 Definition lists 
 
-    =item :term<XML>
+    =for item :term<XML>
     Extensible Markup Language
-    =item :term<HTML>
+    =for item :term<HTML>
     Hyper Text Markup Language
 
 
@@ -69,7 +69,7 @@ DOCUMENTING !DOCUMENTING !DOCUMENTING !DOCUMENTING !DOCUMENTING !
 
 =cut
 
-$Perl6::Pod::VERSION = '0.12';
+$Perl6::Pod::VERSION = '0.13';
 
 use warnings;
 use strict;
