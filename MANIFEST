@@ -13,6 +13,7 @@ lib/Perl6/Pod/Directive/use.pm
 lib/Perl6/Pod/FormattingCode.pm
 lib/Perl6/Pod/FormattingCode/L.pm
 lib/Perl6/Pod/FormattingCode/M.pm
+lib/Perl6/Pod/FormattingCode/P.pm
 lib/Perl6/Pod/Parser.pm
 lib/Perl6/Pod/Parser/AddHeadLevels.pm
 lib/Perl6/Pod/Parser/AddIds.pm
@@ -20,8 +21,11 @@ lib/Perl6/Pod/Parser/Context.pm
 lib/Perl6/Pod/Parser/CustomCodes.pm
 lib/Perl6/Pod/Parser/Doallow.pm
 lib/Perl6/Pod/Parser/Doformatted.pm
+lib/Perl6/Pod/Parser/FilterPattern.pm
 lib/Perl6/Pod/Parser/ListLevels.pm
 lib/Perl6/Pod/Parser/Pod2Events.pm
+lib/Perl6/Pod/Parser/Utils.pm
+lib/Perl6/Pod/Test.pm
 lib/Perl6/Pod/To.pm
 lib/Perl6/Pod/To/DocBook.pm
 lib/Perl6/Pod/To/DocBook/ProcessHeads.pm
@@ -55,7 +59,9 @@ t/09_Parser_Filters.t
 t/10_01.To_xml.t
 t/10_02.To_docbook.t
 t/10_03.To_xhtml.t
+t/data/P_test1.pod
 t/data/S26.pod6
+t/data/std_copyright.pod
 t/lib/T/Block.pm
 t/lib/T/Block/code.pm
 t/lib/T/Block/format.pm
@@ -65,12 +71,15 @@ t/lib/T/Block/table.pm
 t/lib/T/FormattingCode.pm
 t/lib/T/FormattingCode/L.pm
 t/lib/T/FormattingCode/M.pm
+t/lib/T/FormattingCode/P.pm
 t/lib/T/Parser.pm
 t/lib/T/Parser/AddHeadLevels.pm
 t/lib/T/Parser/AddIds.pm
 t/lib/T/Parser/Doallow.pm
 t/lib/T/Parser/Doformatted.pm
+t/lib/T/Parser/FilterPattern.pm
 t/lib/T/Parser/ListLevels.pm
+t/lib/T/Parser/Utils.pm
 t/lib/T/To.pm
 t/lib/T/To/DocBook.pm
 t/lib/T/To/Mem.pm
