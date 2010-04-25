@@ -3,25 +3,25 @@ use 5.8.0;
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-          'NAME' => 'Perl6::Pod',
-          'VERSION_FROM' => 'lib/Perl6/Pod.pm',
-          'PREREQ_PM' => {
-                           'Encode' => 0,
-                           'Filter::Simple' => 0,
-                           'Getopt::Long' => 0,
-                           'Pod::Usage' => 0,
-                           'Test::Class' => 0,
-                           'XML::ExtOn' => '0.12',
-                           'XML::Flow' => '0',
-                           'XML::Parser' => '0',
-                           'XML::SAX::Writer' => 0,
-                           'XML::Writer' => '0'
-                         },
-          'INSTALLDIRS' => 'site',
-          'EXE_FILES' => [
-                           'scripts/pod6docbook',
-                           'scripts/pod6xml'
-                         ],
-          'PL_FILES' => {}
-        )
+  'NAME' => 'Perl6::Pod',
+  'VERSION_FROM' => 'lib/Perl6/Pod.pm',
+  'PREREQ_PM' => {
+                   'Encode' => 0,
+                   'Filter::Simple' => 0,
+                   'Getopt::Long' => 0,
+                   'Pod::Usage' => 0,
+                   'Test::Class' => 0,
+                   'XML::ExtOn' => '0.14',
+                   'XML::Flow' => '0',
+                   'XML::Parser' => '0',
+                   'XML::SAX::Writer' => 0,
+                   'XML::Writer' => '0'
+                 },
+  'INSTALLDIRS' => 'site',
+  'EXE_FILES' => [
+                   'scripts/pod6docbook',
+                   'scripts/pod6xml'
+                 ],
+  'PL_FILES' => {}
+)
 ;
