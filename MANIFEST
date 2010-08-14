@@ -5,6 +5,8 @@ lib/Perl6/Pod/Block.pm
 lib/Perl6/Pod/Block/code.pm
 lib/Perl6/Pod/Block/comment.pm
 lib/Perl6/Pod/Block/format.pm
+lib/Perl6/Pod/Block/input.pm
+lib/Perl6/Pod/Block/output.pm
 lib/Perl6/Pod/Block/para.pm
 lib/Perl6/Pod/Block/pod.pm
 lib/Perl6/Pod/Block/table.pm
@@ -67,6 +69,8 @@ t/data/std_copyright.pod
 t/lib/T/Block.pm
 t/lib/T/Block/code.pm
 t/lib/T/Block/format.pm
+t/lib/T/Block/input.pm
+t/lib/T/Block/output.pm
 t/lib/T/Block/para.pm
 t/lib/T/Block/pod.pm
 t/lib/T/Block/table.pm
