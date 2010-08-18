@@ -14,6 +14,7 @@ lib/Perl6/Pod/Directive/config.pm
 lib/Perl6/Pod/Directive/use.pm
 lib/Perl6/Pod/FormattingCode.pm
 lib/Perl6/Pod/FormattingCode/B.pm
+lib/Perl6/Pod/FormattingCode/C.pm
 lib/Perl6/Pod/FormattingCode/I.pm
 lib/Perl6/Pod/FormattingCode/L.pm
 lib/Perl6/Pod/FormattingCode/M.pm
@@ -77,6 +78,7 @@ t/lib/T/Block/table.pm
 t/lib/T/Directive/use.pm
 t/lib/T/FormattingCode.pm
 t/lib/T/FormattingCode/B.pm
+t/lib/T/FormattingCode/C.pm
 t/lib/T/FormattingCode/I.pm
 t/lib/T/FormattingCode/L.pm
 t/lib/T/FormattingCode/M.pm
