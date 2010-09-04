@@ -19,6 +19,7 @@ lib/Perl6/Pod/FormattingCode/I.pm
 lib/Perl6/Pod/FormattingCode/L.pm
 lib/Perl6/Pod/FormattingCode/M.pm
 lib/Perl6/Pod/FormattingCode/P.pm
+lib/Perl6/Pod/FormattingCode/X.pm
 lib/Perl6/Pod/Parser.pm
 lib/Perl6/Pod/Parser/AddHeadLevels.pm
 lib/Perl6/Pod/Parser/AddIds.pm
@@ -83,6 +84,7 @@ t/lib/T/FormattingCode/I.pm
 t/lib/T/FormattingCode/L.pm
 t/lib/T/FormattingCode/M.pm
 t/lib/T/FormattingCode/P.pm
+t/lib/T/FormattingCode/X.pm
 t/lib/T/Parser.pm
 t/lib/T/Parser/AddHeadLevels.pm
 t/lib/T/Parser/AddIds.pm

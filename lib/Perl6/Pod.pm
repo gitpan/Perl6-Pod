@@ -213,8 +213,6 @@ This option expects a list of formatting codes that are to be recognized within 
 
 =item use :allow attribute for any block or formatting codes
 
-=item Change =use  format. Make it similar to =config
-
 =back
 
 Perl6::Pod - in general, a set of classes, scripts and modules for maintance Perl6's pod documentation using perl5.
@@ -233,15 +231,11 @@ The suite contain the following classes:
 
 =back
 
-
-
 DOCUMENTING !DOCUMENTING !DOCUMENTING !DOCUMENTING !DOCUMENTING !
-
-
 
 =cut
 
-$Perl6::Pod::VERSION = '0.21';
+$Perl6::Pod::VERSION = '0.22';
 
 use warnings;
 use strict;

@@ -13,7 +13,7 @@ name: Perl6-Pod
 provides:
   Perl6::Pod:
     file: lib/Perl6/Pod.pm
-    version: 0.21
+    version: 0.22
   Perl6::Pod::Block:
     file: lib/Perl6/Pod/Block.pm
   Perl6::Pod::Block::code:
@@ -50,6 +50,8 @@ provides:
     file: lib/Perl6/Pod/FormattingCode/M.pm
   Perl6::Pod::FormattingCode::P:
     file: lib/Perl6/Pod/FormattingCode/P.pm
+  Perl6::Pod::FormattingCode::X:
+    file: lib/Perl6/Pod/FormattingCode/X.pm
   Perl6::Pod::Parser:
     file: lib/Perl6/Pod/Parser.pm
   Perl6::Pod::Parser::AddHeadLevels:
@@ -111,4 +113,4 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Perl6::Pod
   license: http://dev.perl.org/licenses/
   repository: git://github.com/zag/p5-Perl6-Pod.git
-version: 0.21
+version: 0.22
