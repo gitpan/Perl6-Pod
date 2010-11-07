@@ -19,6 +19,7 @@ lib/Perl6/Pod/FormattingCode/E.pm
 lib/Perl6/Pod/FormattingCode/I.pm
 lib/Perl6/Pod/FormattingCode/L.pm
 lib/Perl6/Pod/FormattingCode/M.pm
+lib/Perl6/Pod/FormattingCode/N.pm
 lib/Perl6/Pod/FormattingCode/P.pm
 lib/Perl6/Pod/FormattingCode/X.pm
 lib/Perl6/Pod/Parser.pm
@@ -30,6 +31,7 @@ lib/Perl6/Pod/Parser/Doallow.pm
 lib/Perl6/Pod/Parser/Doformatted.pm
 lib/Perl6/Pod/Parser/FilterPattern.pm
 lib/Perl6/Pod/Parser/ListLevels.pm
+lib/Perl6/Pod/Parser/NOTES.pm
 lib/Perl6/Pod/Parser/Pod2Events.pm
 lib/Perl6/Pod/Parser/Utils.pm
 lib/Perl6/Pod/Test.pm
@@ -85,6 +87,7 @@ t/lib/T/FormattingCode/E.pm
 t/lib/T/FormattingCode/I.pm
 t/lib/T/FormattingCode/L.pm
 t/lib/T/FormattingCode/M.pm
+t/lib/T/FormattingCode/N.pm
 t/lib/T/FormattingCode/P.pm
 t/lib/T/FormattingCode/X.pm
 t/lib/T/Parser.pm
