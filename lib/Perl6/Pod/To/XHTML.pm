@@ -75,7 +75,6 @@ use Perl6::Pod::To::XHTML::ProcessHeadings;
 use Perl6::Pod::To::XHTML::MakeHead;
 use Perl6::Pod::To::XHTML::MakeBody;
 use Perl6::Pod::Parser::Doformatted;
-use Perl6::Pod::Parser::Doallow;
 use XML::ExtOn('create_pipe');
 use base qw/Perl6::Pod::To::XML/;
 use constant POD_URI => 'http://perlcabal.org/syn/S26.html';
@@ -101,7 +100,6 @@ sub new {
       create_pipe( 'Perl6::Pod::To::XHTML::ProcessHeadings', $self->{out_put} );
     return create_pipe(
         'Perl6::Pod::Parser::Doformatted',
-        'Perl6::Pod::Parser::Doallow',
         'Perl6::Pod::Parser::ListLevels',
         'Perl6::Pod::Parser::AddHeadLevels',
         'Test::Filter',
@@ -320,7 +318,7 @@ sub export_block__NOTE_ {
     $a->attrs_by_name->{name} = "ftn.nid${nid}";
     $a->attrs_by_name->{href} = "#nid${nid}";
     $a->add_content(
-        $self->mk_element('sup')->add_content( $self->mk_characters("$nid.") )
+        $self->mk_element('sup')->add_content( $self->mk_characters("$nid. ") )
     );
     return $self->mk_element('p')->add_content( $a, $self->_make_events(@p) );
 

@@ -27,7 +27,6 @@ lib/Perl6/Pod/Parser/AddHeadLevels.pm
 lib/Perl6/Pod/Parser/AddIds.pm
 lib/Perl6/Pod/Parser/Context.pm
 lib/Perl6/Pod/Parser/CustomCodes.pm
-lib/Perl6/Pod/Parser/Doallow.pm
 lib/Perl6/Pod/Parser/Doformatted.pm
 lib/Perl6/Pod/Parser/FilterPattern.pm
 lib/Perl6/Pod/Parser/ListLevels.pm
@@ -93,7 +92,6 @@ t/lib/T/FormattingCode/X.pm
 t/lib/T/Parser.pm
 t/lib/T/Parser/AddHeadLevels.pm
 t/lib/T/Parser/AddIds.pm
-t/lib/T/Parser/Doallow.pm
 t/lib/T/Parser/Doformatted.pm
 t/lib/T/Parser/FilterPattern.pm
 t/lib/T/Parser/ListLevels.pm
