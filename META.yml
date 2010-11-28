@@ -13,7 +13,7 @@ name: Perl6-Pod
 provides:
   Perl6::Pod:
     file: lib/Perl6/Pod.pm
-    version: 0.26_5
+    version: 0.26_6
   Perl6::Pod::Block:
     file: lib/Perl6/Pod/Block.pm
   Perl6::Pod::Block::code:
@@ -117,4 +117,4 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Perl6::Pod
   license: http://dev.perl.org/licenses/
   repository: git://github.com/zag/p5-Perl6-Pod.git
-version: 0.26_5
+version: 0.26_6
