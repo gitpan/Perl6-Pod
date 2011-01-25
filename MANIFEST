@@ -10,9 +10,11 @@ lib/Perl6/Pod/Block/output.pm
 lib/Perl6/Pod/Block/para.pm
 lib/Perl6/Pod/Block/pod.pm
 lib/Perl6/Pod/Block/table.pm
+lib/Perl6/Pod/Directive/alias.pm
 lib/Perl6/Pod/Directive/config.pm
 lib/Perl6/Pod/Directive/use.pm
 lib/Perl6/Pod/FormattingCode.pm
+lib/Perl6/Pod/FormattingCode/A.pm
 lib/Perl6/Pod/FormattingCode/B.pm
 lib/Perl6/Pod/FormattingCode/C.pm
 lib/Perl6/Pod/FormattingCode/E.pm
@@ -78,8 +80,10 @@ t/lib/T/Block/output.pm
 t/lib/T/Block/para.pm
 t/lib/T/Block/pod.pm
 t/lib/T/Block/table.pm
+t/lib/T/Directive/alias.pm
 t/lib/T/Directive/use.pm
 t/lib/T/FormattingCode.pm
+t/lib/T/FormattingCode/A.pm
 t/lib/T/FormattingCode/B.pm
 t/lib/T/FormattingCode/C.pm
 t/lib/T/FormattingCode/E.pm
