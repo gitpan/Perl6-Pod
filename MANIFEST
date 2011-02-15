@@ -6,6 +6,7 @@ lib/Perl6/Pod/Block/code.pm
 lib/Perl6/Pod/Block/comment.pm
 lib/Perl6/Pod/Block/format.pm
 lib/Perl6/Pod/Block/input.pm
+lib/Perl6/Pod/Block/nested.pm
 lib/Perl6/Pod/Block/output.pm
 lib/Perl6/Pod/Block/para.pm
 lib/Perl6/Pod/Block/pod.pm
@@ -32,6 +33,7 @@ lib/Perl6/Pod/Parser/CustomCodes.pm
 lib/Perl6/Pod/Parser/Doformatted.pm
 lib/Perl6/Pod/Parser/FilterPattern.pm
 lib/Perl6/Pod/Parser/ListLevels.pm
+lib/Perl6/Pod/Parser/NestedAttr.pm
 lib/Perl6/Pod/Parser/NOTES.pm
 lib/Perl6/Pod/Parser/Pod2Events.pm
 lib/Perl6/Pod/Parser/Utils.pm
@@ -76,6 +78,7 @@ t/lib/T/Block.pm
 t/lib/T/Block/code.pm
 t/lib/T/Block/format.pm
 t/lib/T/Block/input.pm
+t/lib/T/Block/nested.pm
 t/lib/T/Block/output.pm
 t/lib/T/Block/para.pm
 t/lib/T/Block/pod.pm
@@ -99,6 +102,7 @@ t/lib/T/Parser/AddIds.pm
 t/lib/T/Parser/Doformatted.pm
 t/lib/T/Parser/FilterPattern.pm
 t/lib/T/Parser/ListLevels.pm
+t/lib/T/Parser/NestedAttr.pm
 t/lib/T/Parser/Utils.pm
 t/lib/T/To.pm
 t/lib/T/To/DocBook.pm
