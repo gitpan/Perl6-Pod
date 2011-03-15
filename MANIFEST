@@ -6,6 +6,7 @@ lib/Perl6/Pod/Block/code.pm
 lib/Perl6/Pod/Block/comment.pm
 lib/Perl6/Pod/Block/format.pm
 lib/Perl6/Pod/Block/input.pm
+lib/Perl6/Pod/Block/item.pm
 lib/Perl6/Pod/Block/nested.pm
 lib/Perl6/Pod/Block/output.pm
 lib/Perl6/Pod/Block/para.pm
@@ -78,6 +79,7 @@ t/lib/T/Block.pm
 t/lib/T/Block/code.pm
 t/lib/T/Block/format.pm
 t/lib/T/Block/input.pm
+t/lib/T/Block/item.pm
 t/lib/T/Block/nested.pm
 t/lib/T/Block/output.pm
 t/lib/T/Block/para.pm
