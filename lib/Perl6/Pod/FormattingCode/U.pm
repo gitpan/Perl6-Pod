@@ -1,4 +1,4 @@
-package Perl6::Pod::FormattingCode::B;
+package Perl6::Pod::FormattingCode::U;
 
 #$Id$
 
@@ -6,16 +6,18 @@ package Perl6::Pod::FormattingCode::B;
 
 =head1 NAME
 
-Perl6::Pod::FormattingCode::B - Basis/focus of sentence
+Perl6::Pod::FormattingCode::U - Unusual text
 
 =head1 SYNOPSIS
 
         =para
-        formatting code B<specifies>
+        the contained text is U<unusual>
 
 =head1 DESCRIPTION
 
-The C<BE<lt>E<gt>> formatting code specifies that the contained text is the basis or focus of the surrounding text; that it is of fundamental significance. Such content would typically be rendered in a bold style or in  C<E<lt>strongE<gt>>...C<E<lt>/strongE<gt>> tags.
+The C<UE<lt>E<gt>> formatting code specifies that the contained text is
+B<unusual> or distinctive; that it is of I<minor significance>. Typically
+such content would be rendered in an underlined style.
 
 =cut
 
@@ -27,34 +29,45 @@ use base 'Perl6::Pod::FormattingCode';
 
 =head2 to_xhtml
 
-    B<test>
+    U<sample>
 
 Render xhtml:
 
-    <strong>test</strong>
-    
+    <em class="unusual" >sample</em>
+
+Use css style for underline style:
+
+     .unusual {
+     font-style: normal;
+     text-decoration: underline;
+     }
+
 =cut
+
 sub to_xhtml {
  my ( $self, $parser, @in ) = @_;
  my @content = $parser->_make_events(@in);
- return $parser->mk_element('strong')->add_content(@content);
+ my $emp =  $parser->mk_element('em')->add_content(@content);
+ $emp->attrs_by_name->{class} = 'unusual';
+ return $emp
 }
 
 =head2 to_docbook
 
-    B<test>
+    U<sample>
 
 Render to
 
-   <emphasis role='bold'>test</emphasis> 
+   <emphasis role='underline'>test</emphasis> 
 
 =cut
+#http://old.nabble.com/docbook-with-style-info-td25857763.html
 
 sub to_docbook {
  my ( $self, $parser, @in ) = @_;
  my @content = $parser->_make_events(@in);
  my $emp = $parser->mk_element('emphasis')->add_content(@content);
- $emp->attrs_by_name->{role} = 'bold';
+ $emp->attrs_by_name->{role} = 'underline';
  return $emp;
 }
 
