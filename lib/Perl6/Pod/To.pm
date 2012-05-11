@@ -1,7 +1,6 @@
 package Perl6::Pod::To;
-
-#$Id$
-
+use strict;
+use warnings;
 =pod
 
 =head1 NAME
@@ -17,118 +16,234 @@ Perl6::Pod::To - base class for output formatters
 
 =cut
 
-use strict;
-use warnings;
-use Perl6::Pod::Parser;
-use Test::More;
-use Data::Dumper;
-use XML::ExtOn ('create_pipe');
-use base qw/Perl6::Pod::Parser/;
-
-################# FUNCTION
-sub to_abstract {
+use Carp;
+use Perl6::Pod::Utl::AbstractVisiter;
+use base 'Perl6::Pod::Utl::AbstractVisiter';
+use Perl6::Pod::Block::SEMANTIC;
+sub new {
     my $class = shift;
-    my $out   = shift;
-    my %arg   = @_;
-    $arg{out_put} = $out if defined($out);
-    my $out_formatter = $class->new(%arg);
-    my $p = create_pipe( 'Perl6::Pod::Parser', $out_formatter );
-    return wantarray ? ( $p, $out_formatter ) : $p;
-}
-
-=head1 METHODS
-
-=cut
-
-sub on_start_block {
-    my $self = shift;
-    my $el   = shift;
-    return $el unless $el->isa('Perl6::Pod::Block');
-    $el->delete_element;
-    return $el;
-}
-
-sub export_block {
-    my ( $self, $elem, $text ) = @_;
-    my $lname = $elem->local_name;
-#    warn ref($self)."->export_block_$lname() not found. And not overriden export_block method ";
-}
-
-sub export_code {
-    my ( $self, $elem, $text ) = @_;
-    my $lname = $elem->local_name;
-#    warn ref($self)."->export_code_$lname() not found. And not overriden export_code method ";
-}
-
-sub on_para {
-    my $self = shift;
-    my ( $element, $text ) = @_;
-    return $text unless $element->isa('Perl6::Pod::Block');
-    $element->{_CONTENT_} .= $text;
-    return;
-}
-
-#internal methods
-# $self->__handle_export( $element, @params)
-# return export data of $element
-
-sub __handle_export {
-    my $self   = shift;
-    my $el     = shift || return;
-    my $e_name = $el->local_name;
-    my $e_type = $el->isa('Perl6::Pod::FormattingCode') ? 'code' : 'block';
-    my $export_method = "export_${e_type}_${e_name}";
-    return
-        $self->can($export_method) ? $self->$export_method( $el, @_ )
-      : $e_type eq "code" ? $self->export_code( $el, @_ )
-      :                     $self->export_block( $el, @_ );
-}
-
-=head2 print_export
-
-Method for handle print out exported data
-
-=cut
-
-sub print_export {
-    my $self = shift;
-    my @data = @_;
-
-    #get out unless not out_put defined
-    return unless exists $self->{out_put};
-    my $out_put = $self->{out_put};
-    return unless ref($out_put);    #skip bad out
-    if ( ref($out_put) eq 'SCALAR' ) {
-        $$out_put .= join "" => @data;
+    my $self = bless( ( $#_ == 0 ) ? shift : {@_}, ref($class) || $class );
+    # check if exists context
+    # create them instead
+    unless ( $self->context ) {
+        use Perl6::Pod::Utl::Context;
+        $self->context( new Perl6::Pod::Utl::Context:: );
     }
-    elsif (
-        (
-            UNIVERSAL::isa( $out_put, 'IO::Handle' )
-            or ( ref $out_put ) eq 'GLOB'
-        )
-        or UNIVERSAL::isa( $out_put, 'Tie::Handle' )
-      )
-    {
-        print $out_put join "" => @data;
+    unless ( $self->writer ) {
+         use Perl6::Pod::Writer;
+        $self->{writer} = new Perl6::Pod::Writer( out => \*STDOUT )
+    }
+    #init head levels
+    $self->{ HEAD_LEVELS } = 0;
+    $self;
+}
+
+sub writer {
+    return $_[0]->{writer};
+}
+
+sub w {
+    return $_[0]->writer;
+}
+
+sub context {
+    my $self = shift;
+    if (@_) {
+        $self->{context} = shift;
+    }
+    return $self->{context}
+}
+
+#TODO then visit to child -> create new context !
+sub visit_childs {
+    my $self = shift;
+    foreach my $n (@_) {
+        die "Unknow type $n (not isa Perl6::Pod::Block)"
+          unless UNIVERSAL::isa( $n, 'Perl6::Pod::Block' )
+              || UNIVERSAL::isa( $n, 'Perl6::Pod::Lex::Block' );
+        unless (defined $n->childs) {
+            #die " undefined childs for". Dumper ($n)
+            next;
+        }
+        foreach my $ch ( @{ $n->childs } ) {
+            $self->visit($ch);
+        }
     }
 }
 
-sub on_end_block {
+sub visit {
     my $self = shift;
-    my $el   = shift;
-#    warn "!!!end". $el->local_name;
-    return $el unless $el->isa('Perl6::Pod::Block');
-    my $text = exists $el->{_CONTENT_} ? $el->{_CONTENT_} : undef;
-    my $data = $self->__handle_export( $el, $text );
-    my $cel = $self->current_root_element;
-    if ($cel) {
-        $cel->{_CONTENT_} .= $data;
+    my $n    = shift;
+
+    if ( ref($n) eq 'ARRAY' ) {
+        $self->visit($_) for @$n;
         return;
     }
-    else {
-        $self->print_export($data);
+
+    # if string -> paragraph
+    unless ( ref($n) ) {
+            return $self->w->print($n)
     }
-    return $el;
+
+    die "Unknown node type $n (not isa Perl6::Pod::Lex::Block)"
+      unless UNIVERSAL::isa( $n, 'Perl6::Pod::Lex::Block' );
+
+    # here convert lexer base block to
+    # instance of DOM class
+    my $name = $n->name;
+    my $map  = $self->context->use;
+    my $class;
+    #convert lexer blocks
+    unless ( UNIVERSAL::isa( $n, 'Perl6::Pod::Block' ) ) {
+
+        my %additional_attr = ();
+        if ( UNIVERSAL::isa( $n, 'Perl6::Pod::Lex::FormattingCode' ) ) {
+            $class = $map->{ $name . '<>' } || $map->{'*<>'};
+        }
+
+        # UNIVERSAL::isa( $n, 'Perl6::Pod::Lex::Block' )
+        else {
+
+            if ( $name =~ /(para|code)/ ) {
+
+                # add { name=>$name }
+                # for text and code blocks
+                $additional_attr{name} = $name;
+            }
+
+             $class = $map->{$name} 
+               ||  ( $name eq uc($name) 
+                  ? 'Perl6::Pod::Block::SEMANTIC' 
+                  : $map->{'*'} ); 
+        }
+
+        #create instance
+        my $el =
+            $class eq '-'
+          ? $n
+          : $class->new( %$n, %additional_attr, context => $self->context );
+
+        #if no instanse -> skip this element
+        return undef unless ($el);
+        $n = $el;
+    }
+    #prcess head levels
+    #TODO also semantic BLOCKS
+    if ( $name eq 'head' ) {
+          $self->switch_head_level($n->level)
+    }
+    #process nested attr
+    my $nested = $n->get_attr->{nested};
+    if ($nested) {
+        $self->w->start_nesting($nested)
+    }
+    #make method name
+    my $method = $self->__get_method_name($n);
+    #call method
+    $self->$method($n);
+
+    if ($nested) {
+        $self->w->stop_nesting($nested)
+    }
+}
+
+=head2 switch_head_level
+
+Service method for =head
+
+=cut
+
+sub switch_head_level {
+    my $self = shift;
+    if ( @_ )  {
+         my $prev = $self->{HEAD_LEVELS};
+         $self->{HEAD_LEVELS} = shift;
+         return $prev;
+    }
+    $self->{HEAD_LEVELS}
+}
+sub __get_method_name {
+    my $self = shift;
+    my $el = shift || croak "empty object !";
+    my $method;
+    use Data::Dumper;
+    unless (UNIVERSAL::isa( $el, 'Perl6::Pod::Block') ) {
+        warn "unknown block". Dumper($el);
+    }
+    my $name = $el->name || die "Can't get element name for " . Dumper($el);
+    if ( UNIVERSAL::isa( $el, 'Perl6::Pod::FormattingCode' ) ) {
+        $method = "code_$name";
+    }
+    else {
+        $method = "block_$name";
+    }
+    return $method;
+}
+
+sub block_File {
+    my $self = shift;
+    return $self->visit_childs(@_);
+}
+
+sub block_pod {
+    my $self = shift;
+    return $self->visit_childs(@_);
+}
+
+#comments
+sub code_Z {}
+sub block_comment {}
+
+
+
+sub write {
+    my $self = shift;
+    my $tree = shift;
+    $self->visit($tree);
+}
+=head2 parse \$TEXT
+
+parse text
+
+=cut
+
+sub parse {
+    my $self = shift;
+    my $text = shift ;
+    use Perl6::Pod::Utl;
+    my $tree = Perl6::Pod::Utl::parse_pod(ref($text) ? $$text : $text, @_) || return "Error";
+    $self->start_write;
+    $self->write($tree);
+    $self->end_write;
+    0;
+}
+
+# unless have export method
+# try element methods for export
+sub __default_method {
+    my $self   = shift;
+    my $n      = shift;
+    #detect output format
+    # Perl6::Pod::To::DocBook -> to_docbook
+    ( my $export_method = ref($self) ) =~ s/^.*To::([^:]+)/lc "to_$1"/es;
+    unless ( $export_method && UNIVERSAL::can($n, $export_method) ) {
+    my $method = $self->__get_method_name($n);
+    die ref($self)
+      . ": Method '$method' for class "
+      . ref($n)
+      . " not implemented. But also can't found export method ". ref($n) . "::$export_method";
+    }
+    #call method for export
+    $n->$export_method($self)
+}
+
+sub start_write {
+    my $self = shift;
+}
+
+
+sub end_write {
+    my $self = shift;
 }
 
 
@@ -149,7 +264,7 @@ Zahatski Aliaksandr, <zag@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2009-2010 by Zahatski Aliaksandr
+Copyright (C) 2009-2012 by Zahatski Aliaksandr
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.8 or,

@@ -1,7 +1,5 @@
 package Perl6::Pod::Block::para;
 
-#$Id$
-
 =pod
 
 =head1 NAME
@@ -34,45 +32,37 @@ use warnings;
 use strict;
 use Perl6::Pod::Block;
 use base 'Perl6::Pod::Block';
-use Test::More;
+use Perl6::Pod::Utl;
 use Data::Dumper;
 
-sub on_para {
-    my $self   = shift;
-    my $parser = shift;
-    my $txt    = shift;
-    return unless defined $txt;
-    my $line_num = $self->context->custom->{_line_num_};
-
-    #process multi paragraph blocks
-    if ( ( my @paras = split( /[\n\r]\s*[\n\r]/, $txt ) ) > 1 ) {
-
-        # convert paragrapths to para
-        #skip tag
-        $self->local_name('_PARA_CONTAINER_');
-        for (@paras) {
-
-            $parser->start_block( 'para', '', $line_num );
-            $parser->para($_);
-            $parser->end_block( 'para', '', $line_num );
-
-        }
-        return;
-
-    }
-
-    #process single para
-    return $self->SUPER::on_para( $parser, $txt );
-}
-
 sub to_xhtml {
-    my $self   = shift;
-    my $parser = shift;
-    return [ $parser->_make_elements(@_) ]
-      if $self->local_name eq '_PARA_CONTAINER_';
-    my $el =
-      $parser->mk_element('p')->add_content( $parser->_make_elements(@_) );
-    return $el;
+    my $self = shift;
+    my $to   = shift;
+    my $w  = $to->w;
+    foreach my $para (@{ $self->childs }) {
+        if(ref($para)) {
+            $to->visit($para);next;
+        }
+        $w->raw( '<p>');
+        my $fc = Perl6::Pod::Utl::parse_para($para);
+        $to->visit($fc);
+        $w->raw('</p>' );
+    }
+}
+sub to_docbook {
+    my $self = shift;
+    my $to   = shift;
+    my $w  = $to->w;
+    foreach my $para (@{ $self->childs }) {
+        if(ref($para)) {
+            $to->visit($para);next;
+        }
+        $w->raw( '<para>');
+        my $fc = Perl6::Pod::Utl::parse_para($para);
+#        die Dumper ($fc);
+        $to->visit($fc);
+        $w->raw('</para>' );
+    }
 }
 
 1;
@@ -91,7 +81,7 @@ Zahatski Aliaksandr, <zag@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2009-2010 by Zahatski Aliaksandr
+Copyright (C) 2009-2012 by Zahatski Aliaksandr
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.8 or,

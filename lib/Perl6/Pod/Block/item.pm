@@ -167,15 +167,36 @@ use warnings;
 use Data::Dumper;
 use Perl6::Pod::Block;
 use base 'Perl6::Pod::Block';
+use Perl6::Pod::Utl;
 
-# set type of item
-sub start {
-    my ( $self, $parser, $attr ) = @_;
-    if ( my $txt = $self->context->custom->{_FIRST_PARA_LINE_} ) {
-        if ( $txt =~ m/^\s*#\s+/ ) {
-            $self->attrs_by_name->{numbered} = 1;
+sub new {
+    my $class = shift;
+    my $self  = $class->SUPER::new(@_);
 
+    #check if item numbered
+    #    my $content = $self->{content}->[0];
+    if ( $self->{content}->[0] =~ s/^(\s*\#\s*)// ) {
+
+        #set numbered attr
+        #TODO $self->set_attr;
+        push @{ $self->{attr} },
+          {
+            ''      => ':numbered',
+            'name'  => 'numbered',
+            'type'  => 'bool',
+            'items' => 1
+          };
+    }
+
+    # for definition get TERM
+    #The first non-blank line of content is treated as a term being defined,
+    #and the remaining content is treated as the definition for the term
+    if ( $self->item_type eq 'definition' ) {
+        my $first_para = $self->{'content'}->[0];
+        if ( $first_para =~ s/^\s*(.*)[\r\n]// ) {
+            $self->{term} = $1;
         }
+        $self->{'content'}->[0] = $first_para;
     }
     return $self;
 }
@@ -188,13 +209,10 @@ sub item_type {
 
     #for defn block name
     return 'definition'
-      if $self->local_name eq 'defn'
-          or exists $pod_attr->{term};
+      if $self->name eq 'defn';
 
     my $type = 'unordered';
     if ( $self->is_numbered ) {
-
-  #    if ( exists $pod_attr->{numbered} || $self->attrs_by_name->{numbered} ) {
         $type = 'ordered';
     }
     $type;
@@ -203,95 +221,12 @@ sub item_type {
 sub is_numbered {
     my $self     = shift;
     my $pod_attr = $self->get_attr;
-    return $pod_attr->{numbered} if exists $pod_attr->{numbered};
-    $self->attrs_by_name->{numbered} || 0;
+    return $pod_attr->{numbered} || 0;
 }
 
 sub item_level {
     my $self = shift;
-    $self->attrs_by_name->{level} || 1;    #default 1 level for items
-}
-
-sub on_para {
-    my $self   = shift;
-    my $parser = shift;
-    my $txt    = shift;
-
-    #clean #
-    if ( $txt =~ s/^\s*#\s+// ) {
-        $self->attrs_by_name->{numbered} = 1;
-
-    }
-    my $line_num = $self->context->custom->{_line_num_};
-
-    if ( $self->item_type eq 'definition' ) {
-
-        #process definitions
-        #The first non-blank line of content
-        #is treated as a term being defined,
-        #get term:
-        #
-        my $term;
-
-        #try first get TERM from attribute
-        if ( exists( $self->get_attr->{term} ) ) {
-            $term = $self->get_attr->{term};
-            ($term) =
-              ref($term)
-              ? @{$term}
-              : ($term);
-
-        }
-        else {
-            if ( $txt =~ s/^(.*)(?:\Z|\n)// ) {
-                $term = $1;
-            }
-        }
-        if ( defined($term) ) {
-
-            #$self->attrs_by_name->{term} = $1;
-            #use special BLOCK
-            $parser->start_block( '_DEFN_TERM_', '', $line_num );
-            $parser->para($term);
-            $parser->end_block( '_DEFN_TERM_', '', $line_num );
-        }
-    }
-
-    #support multi paragrapth contents
-    if ( ( my @paras = split( /[\n\r]\s*[\n\r]/, $txt ) ) > 1 ) {
-
-        my $item_entry = $self->mk_block('_ITEM_ENTRY_');
-        $item_entry->attrs_by_name->{is_multi_para} = 1;
-        $item_entry->attrs_by_name->{listtype}      = $self->item_type;
-        $parser->start_block($item_entry);
-
-        # convert paragrapths to para
-        for (@paras) {
-
-       # check if block code
-       #detect type of para
-       #from S26
-       #A code block may be implicitly specified as one or more lines of text,
-       #each of which starts with a whitespace character at the block's virtual
-       #left margin. The implicit code block is then terminated by a blank line.
-            my $lines                 = scalar @{ [m/^/mg] };
-            my $lines_with_whitespace = scalar @{ [m/^(\s+)\S+/mg] };
-            my $block_type =
-              ( $lines == $lines_with_whitespace ) ? 'code' : 'para';
-            $parser->start_block( $block_type, '', $line_num );
-            $parser->para($_);
-            $parser->end_block( $block_type, '', $line_num );
-        }
-        $parser->end_block($item_entry);
-        undef $txt;
-        return;
-    }
-    my $item_entry = $self->mk_block('_ITEM_ENTRY_');
-    $item_entry->attrs_by_name->{listtype} = $self->item_type;
-    $parser->start_block($item_entry);
-    $parser->run_para( $self->SUPER::on_para( $parser, $txt ) );
-    $parser->end_block($item_entry);
-    return undef;
+    $self->{level} || 1;    #default 1 level for items
 }
 
 =head2 to_xhtml
@@ -352,38 +287,104 @@ L<http://www.tizag.com/htmlT/lists.php>
 =cut
 
 sub to_xhtml {
-    my $self = shift;
-    my ( $parser, @p ) = @_;
+    my ( $self, $to ) = @_;
+    my $w = $to->w;
 
-    #skip item element tagname
-    return [ $parser->_make_events(@p) ];
+    #nesting first (only 2> )
+    unless (exists $self->get_attr->{nested}) {
+        my $tonest = $self->item_level - 1 ;
+        $w->start_nesting(  $tonest  ) if $tonest;
+    }
+
+    my ( $list_name, $items_name ) = @{
+        {
+            ordered    => [ 'ol', 'li' ],
+            unordered  => [ 'ul', 'li' ],
+            definition => [ 'dl', 'dd' ]
+        }->{ $self->item_type }
+      };
+    $w->raw("<$list_name>");
+    if ( $self->item_type eq 'definition' ) {
+        $w->raw('<dt><strong>');
+        $to->visit( Perl6::Pod::Utl::parse_para( $self->{term} ) );
+        $w->raw('</strong></dt>')
+
+    }
+
+    #parse first para
+    $self->{content}->[0] =
+      Perl6::Pod::Utl::parse_para( $self->{content}->[0] );
+    $w->raw("<$items_name>");
+    $to->visit_childs($self);
+    $w->raw("</$items_name>");
+    $w->raw("</$list_name>");
+
+    unless (exists $self->get_attr->{nested}) {
+        my $tonest = $self->item_level - 1  ;
+        $w->stop_nesting(  $tonest  ) if $tonest;
+    }
+
 }
 
 sub to_docbook {
-    my $self = shift;
-    my ( $parser, @p ) = @_;
+
+    #setup first number for ordered lists
+    # 'continuation' docbook attribute
+    # http://www.docbook.org/tdg/en/html/orderedlist.html
+    #        if ( exists $attr->{number_value} ) {
+    #            unless ( exists $rattr->{number_start} ) {
+    #                $rattr->{number_start} = $attr->{number_value};
+    #            }
+    #        }
+    my ( $self, $to ) = @_;
+    my $w = $to->w;
+
+    #nesting first (only 2> )
+    unless (exists $self->get_attr->{nested}) {
+        my $tonest = $self->item_level - 1 ;
+        $w->start_nesting(  $tonest  ) if $tonest;
+    }
+    my ( $list_name, $items_name ) = @{
+        {
+            ordered    => [ 'orderedlist',  'listitem' ],
+            unordered  => [ 'itemizedlist', 'listitem' ],
+            definition => [ 'variablelist', 'listitem' ]
+        }->{ $self->item_type }
+      };
+    $w->raw("<$list_name>");
+            
+
     if ( $self->item_type eq 'definition' ) {
-        return $parser->mk_element('varlistentry')
-          ->add_content( $parser->_make_events(@p) );
+        $w->raw('<varlistentry>');
+        $to->visit( Perl6::Pod::Utl::parse_para( $self->{term} ) );
+        $w->raw('</varlistentry>')
+
     }
 
-    #setup type of _LIST_ITEM_
-    if ( my $_LIST_ITEM_ = $parser->current_root_element ) {
-        my $rattr = $_LIST_ITEM_->attrs_by_name;
-        my $attr  = $self->attrs_by_name;
+    #parse first para
+    $self->{content}->[0] =
+      Perl6::Pod::Utl::parse_para( $self->{content}->[0] );
+    if ( ( $self->item_type eq 'unordered'  )
+                    && 
+            ( $self->item_level > 1 )
+    ) {
+    #marker
+    #get list from http://www.sagehill.net/docbookxsl/Itemizedlists.html
+    my @markers = qw/bullet opencircle box /;
+    my $marker  = $markers[ ($self->item_level - 1) % 3  ];
+    $w->raw("<$items_name mark='$marker'>");
+    } else {
+     $w->raw("<$items_name>");
+    }
+    $to->visit_childs($self);
+    $w->raw("</$items_name>");
+    $w->raw("</$list_name>");
 
-        #setup first number for ordered lists
-        # 'continuation' docbook attribute
-        # http://www.docbook.org/tdg/en/html/orderedlist.html
-        if ( exists $attr->{number_value} ) {
-            unless ( exists $rattr->{number_start} ) {
-                $rattr->{number_start} = $attr->{number_value};
-            }
-        }
+    unless (exists $self->get_attr->{nested}) {
+        my $tonest = $self->item_level - 1  ;
+        $w->stop_nesting(  $tonest  ) if $tonest;
     }
 
-    #skip item element tagname
-    return [ $parser->_make_events(@p) ];
 }
 1;
 __END__
@@ -401,7 +402,7 @@ Zahatski Aliaksandr, <zag@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2009-2011 by Zahatski Aliaksandr
+Copyright (C) 2009-2012 by Zahatski Aliaksandr
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.8 or,

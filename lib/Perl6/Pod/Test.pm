@@ -1,3 +1,41 @@
+package Perl6::Pod::To::Test;
+use strict;
+use warnings;
+use Perl6::Pod::To;
+use base 'Perl6::Pod::To';
+sub __default_method {
+    my $self   = shift;
+    my $n      = shift;
+    unless (defined $n) {
+    warn "default" . $n;
+    use Data::Dumper;
+    warn Dumper([caller(0)]);
+    }
+
+    #detect output format
+    # Perl6::Pod::To::DocBook -> to_docbook
+    my $export_method ='to_xhtml';
+    unless ( $export_method && UNIVERSAL::can($n, $export_method) ) {
+    my $method = $self->__get_method_name($n);
+    die ref($self)
+      . ": Method '$method' for class "
+      . ref($n)
+      . " not implemented. But also can't found export method ". ref($n) . "::$export_method";
+    }
+    #call method for export
+    $n->$export_method($self);
+   #src_name may be not eq for name
+    # ie/ item2, head5
+    my $name = $n->{name};
+    if (UNIVERSAL::isa($n, 'Perl6::Pod::FormattingCode')) {
+        $name = "$name<>";
+    }
+    push @{ $self->{ $name }}, $n;
+    if ( exists ($n->{src_name}) && ($name ne  $n->{src_name}) ) {
+       push @{ $self->{ $n->{src_name} }}, $n;
+    }
+}
+
 package Perl6::Pod::Test;
 #$Id$
 
@@ -17,14 +55,56 @@ use strict;
 use warnings;
 
 use Test::More;
-use Perl6::Pod::To::Mem;
-use Perl6::Pod::To::XML;
+use Perl6::Pod::Writer;
+
 use Perl6::Pod::To::DocBook;
 use Perl6::Pod::To::XHTML;
-use XML::ExtOn::Writer;
 use XML::Flow;
-use XML::ExtOn qw( create_pipe split_pipe);
 
+sub parse_to_docbook {
+    shift if ref($_[0]);
+    my ( $text) = @_;
+    my $out    = '';
+    open( my $fd, ">", \$out );
+    my $renderer = new Perl6::Pod::To::DocBook::
+      writer  => new Perl6::Pod::Writer( out => $fd, escape=>'xml' ),
+      out_put => \$out,
+      doctype => 'chapter',
+      header => 0;
+    $renderer->parse( \$text, default_pod=>1 );
+    return wantarray ? (  $out, $renderer  ) : $out;
+
+}
+
+
+sub parse_to_xhtml {
+    shift if ref($_[0]);
+    my ( $text) = @_;
+    my $out    = '';
+    open( my $fd, ">", \$out );
+    my $renderer = new Perl6::Pod::To::XHTML::
+      writer  => new Perl6::Pod::Writer( out => $fd, escape=>'xml' ),
+      out_put => \$out,
+      doctype => 'xhtml',
+      header => 0;
+    $renderer->parse( \$text, default_pod=>1 );
+    return wantarray ? (  $out, $renderer  ) : $out;
+}
+
+sub parse_to_test {
+    shift if ref($_[0]);
+    my ( $text) = @_;
+    my $out    = '';
+    open( my $fd, ">", \$out );
+    my $renderer = new Perl6::Pod::To::Test::
+      writer  => new Perl6::Pod::Writer( out => $fd, escape=>'xml' ),
+      out_put => \$out,
+      doctype => 'xhtml',
+      header => 0;
+    $renderer->parse( \$text, default_pod=>1 );
+    return  $renderer 
+
+}
 sub new {
     my $class = shift;
     $class = ref $class if ref $class;
@@ -32,111 +112,6 @@ sub new {
     return $self;
 }
 
-=head2 parse_mem \$pod_str, ['filter1']
-
-return out_put from To::Mem formatter
-
-=cut
-
-sub parse_mem {
-    my $test = shift;
-    my ( $text, @filters ) = @_;
-    my $out = [];
-    my $to_mem = new Perl6::Pod::To::Mem:: out_put => $out;
-    my ( $p, $f ) = $test->make_parser( @filters, $to_mem );
-    $p->parse( \$text );
-    return wantarray ? ( $p, $f, $out ) : $out;
-
-}
-
-=head2 parse_to_xml \$pod_str, ['filter1']
-
-return out_put from To::Mem formatter
-
-=cut
-
-sub parse_to_xml {
-    my $test = shift;
-    my ( $text, @filters ) = @_;
-    my $out = '';
-    my $to_mem = new Perl6::Pod::To::XML:: out_put => \$out;
-#    $to_mem->parse(\$text);
-#    return wantarray ? ( $to_mem, $f, $out ) : $out;
-    my ( $p, $f ) = $test->make_parser( @filters, $to_mem );
-    $p->parse( \$text );
-    return wantarray ? ( $p, $f, $out ) : $out;
-}
-
-=head2 pod2xml \$pod_str, ['filter1']
-
-return out_put from To::Mem formatter
-
-=cut
-
-sub pod6xml {
-    my $test = shift;
-    my ( $text, @filters ) = @_;
-    my $out = '';
-    my $to_mem = new Perl6::Pod::To::XML:: out_put => \$out, header=>1;
-    my $p = create_pipe(@filters,$to_mem);
-    $p->parse(\$text);
-    return wantarray ? ( $to_mem, $out ) : $out;
-}
-
-sub make_xhtml_parser {
-    my $t          = shift;
-    my $out        = shift;
-    my $xml_writer = new XML::ExtOn::Writer:: Output => $out;
-    my $out_filters =
-      create_pipe( create_pipe( @_ ? @_ : 'XML::ExtOn', $xml_writer ) );
-    my ( $p, $f ) = Perl6::Pod::To::to_abstract(
-        'Perl6::Pod::To::XHTML', $out,
-        doctype => 'xhtml',
-        headers => 0
-    );
-    return wantarray ? ( $p, $f ) : $p;
-}
-
-sub parse_to_xhtml {
-    my $test = shift;
-    my ( $text, @filters ) = @_;
-    my $out    = '';
-    my $to_mem = new Perl6::Pod::To::XHTML::
-      out_put => \$out,
-      doctype => 'xhtml',
-      headers => 0;
-    my ( $p, $f ) = $test->make_parser( @filters, $to_mem );
-    $p->parse( \$text );
-    return wantarray ? ( $p, $f, $out ) : $out;
-}
-
-sub parse_to_docbook {
-    my $test = shift;
-    my ( $text, @filters ) = @_;
-    my $out    = '';
-    my $to_mem = new Perl6::Pod::To::DocBook::
-      out_put => \$out,
-      doctype => 'chapter',
-      headers => 0;
-    my ( $p, $f ) = $test->make_parser( @filters, $to_mem );
-    $p->parse( \$text );
-    return wantarray ? ( $p, $f, $out ) : $out;
-}
-
-sub make_parser {
-    my $test = shift;
-    unless (@_) {
-        my $class = $test->testing_class;
-        my @args  = $test->new_args;
-        my $obj   = $class->new(@args);
-        push @_, $obj;
-    }
-    my $out_formatter = $_[-1];
-    my $p = create_pipe( 'Perl6::Pod::Parser', @_ );
-    $out_formatter =  split_pipe($p)->[-1]; 
-    return wantarray ? ( $p, $out_formatter ) : $p;
-
-}
 
 =head2 is_deeply_xml <got_xml>,<expected_xml>,"text"
 
