@@ -16,6 +16,7 @@ WriteMakefile
                  },
   'INSTALLDIRS' => 'site',
   'EXE_FILES' => [
+                   'scripts/pod6any',
                    'scripts/pod6docbook',
                    'scripts/pod6xml'
                  ],
