@@ -155,10 +155,6 @@ This option specifies that the block is to be numbered. The most common use of t
 
 It is up to individual renderers to decide how to display any numbering associated with other types of blocks.
 
-=head4 :term
-
-This option specifies that a list item is the definition of a term. See Definition lists. 
-
 =head4 :formatted
 
 This option specifies that the contents of the block should be treated as if they had one or more formatting codes placed around them.
@@ -221,7 +217,7 @@ The suite contain the following classes:
 
 =cut
 
-$Perl6::Pod::VERSION = '0.51';
+$Perl6::Pod::VERSION = '0.53';
 
 use warnings;
 use strict;
@@ -262,6 +258,7 @@ my $DATA_PAT = qr{
 
 
 # Recursive matcher for all other Perldoc sections...
+no strict 'vars';
 
 my $POD_PAT; $POD_PAT = qr{
     ^ =
@@ -291,6 +288,7 @@ my $POD_PAT; $POD_PAT = qr{
         $BLANK_LINE
     )
 }xms;
+
 
 FILTER {
     my @DATA;
