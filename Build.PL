@@ -10,12 +10,13 @@ Module::Build->new
 	'Getopt::Long'=>0,
 	'Test::Class'=>0,
 	'Filter::Simple'=>0,
-	'Regexp::Grammars'=>'1.015'
+	'Regexp::Grammars'=>'1.015',
+	'Tie::UnionHash'=>'0.02'
 	     },
     script_files=>[qw!
 	scripts/pod6any
 	scripts/pod6docbook
-	scripts/pod6xml
+	scripts/pod6xhtml
     !],
    dist_version_from=>'lib/Perl6/Pod.pm',
     meta_merge=>{
