@@ -272,15 +272,20 @@ sub __default_method {
 
     #detect output format
     # Perl6::Pod::To::DocBook -> to_docbook
-    ( my $export_method = ref($self) ) =~ s/^.*To::([^:]+)/lc "to_$1"/es;
+    my $export_format = $self->{format};
+    unless ($export_format) {
+           ( $export_format = ref($self) ) =~ s/^.*To::([^:]+)/lc "$1"/es;
+    }
+    my $export_method = lc "to_$export_format";
     unless ( $export_method && UNIVERSAL::can( $n, $export_method ) ) {
         my $method = $self->__get_method_name($n);
-        die ref($self)
+        warn ref($self)
           . ": Method '$method' for class "
           . ref($n)
           . " not implemented. But also can't found export method "
           . ref($n)
           . "::$export_method";
+        return;
     }
 
     #call method for export

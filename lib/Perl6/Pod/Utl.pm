@@ -7,6 +7,7 @@
 package Perl6::Pod::Utl;
 use strict;
 use warnings;
+use utf8;
 
 =head2  parse_pod [default_pod => 0 ]
 
@@ -98,7 +99,7 @@ sub parse_para {
         @allow{@list} = ();
     }
     my $r = $args{reg} || do {
-         use Regexp::Grammars;
+        use Regexp::Grammars;
         use Perl6::Pod::Grammars;
     qr{
 
@@ -107,6 +108,7 @@ sub parse_para {
        \A  <Text>  \Z
     <token: Text> <[content]>+
     <token: text>  .+?
+    <token: hs>[ \t]*
     <token: content> <MATCH=C_code> 
                     | <MATCH=L_code>
                     | <MATCH=D_code> 
@@ -162,7 +164,7 @@ sub parse_para {
 
     <token: default_formatting_code> 
       <name=(\w)><isValideFCode(:name)>
-            <ldelim>  <[content]>*?   <rdelim(:ldelim)>
+            <ldelim> <.hs> <[content]>*? <.hs> <rdelim(:ldelim)>
 }xms;
       };
 

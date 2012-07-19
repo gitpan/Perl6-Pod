@@ -96,3 +96,4 @@ t/lib/T/Parser/NestedAttr.pm
 t/lib/T/Parser/Utils.pm
 t/lib/TBase.pm
 META.yml
+META.json
