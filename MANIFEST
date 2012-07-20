@@ -61,7 +61,6 @@ t/02.reg.t
 t/04_Blocks.t
 t/05-formatcodes.t
 t/05_FormattingCodes.t
-t/07-Parser.t
 t/data/P_test1.pod
 t/data/S26.pod6
 t/data/std_copyright.pod
