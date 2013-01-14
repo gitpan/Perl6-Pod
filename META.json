@@ -35,7 +35,7 @@
    "provides" : {
       "Perl6::Pod" : {
          "file" : "lib/Perl6/Pod.pm",
-         "version" : "0.56"
+         "version" : "0.57"
       },
       "Perl6::Pod::Block" : {
          "file" : "lib/Perl6/Pod/Block.pm",
@@ -221,6 +221,10 @@
          "file" : "lib/Perl6/Pod/To/DocBook.pm",
          "version" : 0
       },
+      "Perl6::Pod::To::Latex" : {
+         "file" : "lib/Perl6/Pod/To/Latex.pm",
+         "version" : 0
+      },
       "Perl6::Pod::To::Test" : {
          "file" : "lib/Perl6/Pod/Test.pm",
          "version" : 0
@@ -244,6 +248,10 @@
       "Perl6::Pod::Writer" : {
          "file" : "lib/Perl6/Pod/Writer.pm",
          "version" : 0
+      },
+      "Perl6::Pod::Writer::Latex" : {
+         "file" : "lib/Perl6/Pod/Writer/Latex.pm",
+         "version" : 0
       }
    },
    "release_status" : "stable",
@@ -259,5 +267,5 @@
          "url" : "git://github.com/zag/p5-Perl6-Pod.git"
       }
    },
-   "version" : "0.56"
+   "version" : "0.57"
 }
