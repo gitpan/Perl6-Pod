@@ -10,7 +10,7 @@ WriteMakefile
                    'Filter::Simple' => 0,
                    'Getopt::Long' => 0,
                    'Pod::Usage' => 0,
-                   'Regexp::Grammars' => '1.015',
+                   'Regexp::Grammars' => '1.021',
                    'Test::Class' => 0,
                    'Tie::UnionHash' => '0.02',
                    'XML::Flow' => '0'
