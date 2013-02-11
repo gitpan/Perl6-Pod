@@ -35,7 +35,7 @@
    "provides" : {
       "Perl6::Pod" : {
          "file" : "lib/Perl6/Pod.pm",
-         "version" : "0.58"
+         "version" : "0.59"
       },
       "Perl6::Pod::Block" : {
          "file" : "lib/Perl6/Pod/Block.pm",
@@ -267,5 +267,5 @@
          "url" : "git://github.com/zag/p5-Perl6-Pod.git"
       }
    },
-   "version" : "0.58"
+   "version" : "0.59"
 }

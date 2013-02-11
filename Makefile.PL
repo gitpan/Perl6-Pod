@@ -19,6 +19,7 @@ WriteMakefile
   'EXE_FILES' => [
                    'scripts/pod6any',
                    'scripts/pod6docbook',
+                   'scripts/pod6latex',
                    'scripts/pod6xhtml'
                  ],
   'PL_FILES' => {}
