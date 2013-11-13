@@ -60,6 +60,7 @@ scripts/pod6docbook
 scripts/pod6latex
 scripts/pod6xhtml
 t/00-attr.t
+t/01-parser.t
 t/02.reg.t
 t/04_Blocks.t
 t/05-formatcodes.t
